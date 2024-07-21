@@ -1,6 +1,5 @@
 package QuestionApi;
 
-import QuestionApi.finals.Finals;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -25,11 +24,10 @@ public class Main {
 
     public static void menu() {
         boolean on = true;
-        Scanner scanner = new Scanner(System.in);
         while (on) {
             System.out.println("""
                     Welcome to Trivia Game! Please choose category of Questions:
-                    1.General Knowledge
+                    1.Movies
                     2.Vehicle
                     3.Celebrity
                     4.Animals
@@ -38,12 +36,38 @@ public class Main {
 
             int choice = new Scanner(System.in).nextInt();
             switch (choice) {
+
                 case 1 -> {
                     int start = 0;
                     while (start < 3) {
-                        questionsGenerator(category.GENERAL_KNOWLEDGE);
+                        questionsGenerator(category.MOVIES);
                         start++;
                     }
+                    choice=0;
+                }
+                case 2->{
+                    int start = 0;
+                    while (start < 3) {
+                        questionsGenerator(category.VEHICLE);
+                        start++;
+                    }
+                    choice = 0;
+                }
+                case 3->{
+                    int start = 0;
+                    while (start < 3) {
+                        questionsGenerator(category.CELEBRITY);
+                        start++;
+                    }
+                    choice = 0;
+                }
+                case 4->{
+                    int start = 0;
+                    while (start < 3) {
+                        questionsGenerator(category.ANIMAL);
+                        start++;
+                    }
+                    choice = 0;
                 }
             }
         }
@@ -53,7 +77,7 @@ public class Main {
         try {
             Scanner scanner=new Scanner(System.in);
             CloseableHttpClient client= HttpClients.createDefault();
-            URI uri=new URIBuilder("https://opentdb.com/api.php?amount=1&category=27&difficulty=easy&type=multiple")
+            URI uri=new URIBuilder("https://opentdb.com/api.php?amount=1&category="+num+"&difficulty=easy&type=multiple")
                     .build();
             HttpGet getRequest=new HttpGet(uri);
             HttpResponse response=client.execute(getRequest);
